@@ -1,0 +1,28 @@
+[tool.poetry]
+name = "enterprise-ai-platform"
+version = "0.1.0"
+description = "企业级通用AI算力调度与智能体自动化平台 - Module 1"
+authors = ["Team <team@ai.platform>"]
+
+[tool.poetry.dependencies]
+python = "^3.12"
+langgraph = "0.0.60"
+langchain-core = "0.2.38"
+pydantic = "2.7.4"
+redis = "5.0.3"
+openai = "1.14.1"
+anthropic = "0.21.0"
+python-dotenv = "1.0.0"
+msgpack = "1.0.8"
+loguru = "0.7.2"
+
+[tool.poetry.group.dev.dependencies]
+pytest = "8.0.0"
+mypy = "1.9.0"
+black = "24.1.0"
+flake8 = "7.0.0"
+pre-commit = "3.6.0"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
