@@ -1,0 +1,19 @@
+# 企业级通用AI算力调度与智能体自动化平台 - Module 1
+# Python 3.12 | AutoDL Ubuntu 22.04
+
+langgraph==0.0.60
+langchain-core==0.2.38
+pydantic==2.7.4
+redis==5.0.3
+openai==1.14.1
+anthropic==0.21.0
+python-dotenv==1.0.0
+msgpack==1.0.8
+loguru==0.7.2
+numpy==1.26.4
+
+pytest==8.0.0
+mypy==1.9.0
+black==24.1.0
+flake8==7.0.0
+pre-commit==3.6.0
