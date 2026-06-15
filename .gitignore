@@ -7,3 +7,6 @@ __pycache__/
 data/
 *.aof
 *.rdb
+__pycache__/
+*.py[cod]
+*.class
