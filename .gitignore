@@ -7,6 +7,5 @@ __pycache__/
 data/
 *.aof
 *.rdb
-__pycache__/
-*.py[cod]
-*.class
+poetry.lock
+poetry.toml
