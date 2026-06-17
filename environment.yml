@@ -1,11 +1,13 @@
 name: module1_dev
 channels:
+  # 优先采用清华大学开源软件镜像源，保障 AutoDL 算力机在高速内网环境下一键秒级拉起
   - https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/main
-  - https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/main/
-  - https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/free/
+  - https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/free
+  - https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud/conda-forge/
   - https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud/pytorch/
   - defaults
 dependencies:
+  # 核心 C 内核及 Python 环境强锁死配置
   - _libgcc_mutex=0.1
   - _openmp_mutex=5.1
   - bzip2=1.0.8
@@ -36,70 +38,75 @@ dependencies:
   - xz=5.8.2
   - zlib=1.3.2
   - pip:
-      - annotated-doc==0.0.4
-      - annotated-types==0.7.0
-      - anthropic==0.21.0
-      - anyio==4.13.0
-      - black==24.1.0
-      - certifi==2026.5.20
-      - cfgv==3.5.0
-      - charset-normalizer==3.4.7
-      - click==8.4.1
-      - distlib==0.4.3
-      - distro==1.9.0
-      - filelock==3.29.4
-      - flake8==7.0.0
-      - fsspec==2026.4.0
-      - h11==0.16.0
-      - hf-xet==1.5.1
-      - httpcore==1.0.9
-      - httpx==0.28.1
-      - huggingface-hub==1.19.0
-      - identify==2.6.19
-      - idna==3.18
-      - iniconfig==2.3.0
-      - jsonpatch==1.33
-      - jsonpointer==3.1.1
-      - langchain-core==0.2.38
-      - langgraph==0.0.60
-      - langsmith==0.1.147
-      - loguru==0.7.2
-      - markdown-it-py==4.2.0
-      - mccabe==0.7.0
-      - mdurl==0.1.2
-      - msgpack==1.0.8
-      - mypy==1.9.0
-      - mypy-extensions==1.1.0
-      - nodeenv==1.10.0
-      - numpy==1.26.4
-      - openai==1.14.1
-      - orjson==3.11.9
-      - packaging==24.2
-      - pathspec==1.1.1
-      - pip==26.1.2
-      - platformdirs==4.10.0
-      - pluggy==1.6.0
-      - pre-commit==3.6.0
-      - pycodestyle==2.11.1
+      # 成员 B 数据平面与契约治理核心：Pydantic v2 刚性红线
       - pydantic==2.7.4
       - pydantic-core==2.18.4
-      - pyflakes==3.2.0
-      - pygments==2.20.0
-      - pytest==8.0.0
-      - python-discovery==1.4.2
-      - python-dotenv==1.0.0
-      - pyyaml==6.0.3
-      - redis==5.0.3
-      - requests==2.34.2
-      - requests-toolbelt==1.0.0
-      - rich==15.0.0
-      - shellingham==1.5.4
+      - annotated-types==0.7.0
+      - annotated-doc==0.0.4
+      
+      # 成员 B 双轨大模型路由网关底层物理通信适配器
+      - anthropic==0.21.0
+      - openai==1.14.1
+      - httpx==0.28.1
+      - httpcore==1.0.9
+      - anyio==4.13.0
+      - h11==0.16.0
       - sniffio==1.3.1
-      - tenacity==8.5.0
-      - tokenizers==0.23.1
-      - tqdm==4.68.2
-      - typer==0.25.1
-      - typing-extensions==4.15.0
+      - python-dotenv==1.0.0
+      
+      # 成员 A 控制平面：状态机、持久化与分布式锁基础组件
+      - langgraph==0.0.60
+      - langchain-core==0.2.38
+      - redis==5.0.3
+      - msgpack==1.0.8
+      - jsonpatch==1.33
+      - jsonpointer==3.1.1
+      
+      # 成员 C 安全平面与流式可观测性组件
+      - langsmith==0.1.147
+      - loguru==0.7.2
+      - rich==15.0.0
+      - orjson==3.11.9
+      
+      # 跨团队共享基础通用库
+      - numpy==1.26.4
+      - requests==2.34.2
       - urllib3==2.7.0
+      - certifi==2026.5.20
+      - charset-normalizer==3.4.7
+      - idna==3.18
+      - pyyaml==6.0.3
+      - tqdm==4.68.2
+      - requests-toolbelt==1.0.0
+      - click==8.4.1
+      - distro==1.9.0
+      - filelock==3.29.4
+      - packaging==24.2
+      - tenacity==8.5.0
+      - typing-extensions==4.15.0
+      - markdown-it-py==4.2.0
+      - mdurl==0.1.2
+      - shellingham==1.5.4
+      - typer==0.25.1
+      
+      # 3人遵循的高级代码规范与本地代码审计门禁（Git Hook）
+      - pytest==8.0.0
+      - iniconfig==2.3.0
+      - pluggy==1.6.0
+      - mypy==1.9.0
+      - mypy-extensions==1.1.0
+      - black==24.1.0
+      - flake8==7.0.0
+      - mccabe==0.7.0
+      - pycodestyle==2.11.1
+      - pyflakes==3.2.0
+      - pre-commit==3.6.0
+      - cfgv==3.5.0
+      - identify==2.6.19
+      - nodeenv==1.10.0
+      - pathspec==1.1.1
+      - platformdirs==4.10.0
       - virtualenv==21.5.0
-prefix: /root/autodl-tmp/miniconda3/envs/module1_dev
+      - distlib==0.4.3
+      - python-discovery==1.4.2
+      - pygments==2.20.0
