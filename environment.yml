@@ -1,0 +1,17 @@
+name: sandbox
+channels:
+  - defaults  # 显式写明默认通道，完美触发你宿主机 .condarc 里的清华源映射
+dependencies:
+  - python=3.10.13
+  - pip
+  - cmake
+  - ninja
+  - numpy
+  - scipy
+  - pandas
+  - matplotlib
+  - pip:
+      # 5090 专属：阿里云高速 Pip 镜像直连，完美适配 CUDA 12.8+ 
+      - torch --index-url https://mirrors.aliyun.com/pypi/simple/
+      - torchvision --index-url https://mirrors.aliyun.com/pypi/simple/
+      - torchaudio --index-url https://mirrors.aliyun.com/pypi/simple/

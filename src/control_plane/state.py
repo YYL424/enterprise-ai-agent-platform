@@ -1,7 +1,7 @@
 """AgentState TypedDict definition for the control plane state machine."""
 
 import operator
-from typing import Annotated, List, TypedDict
+from typing import Annotated, TypedDict
 
 
 class AgentState(TypedDict):
@@ -11,8 +11,8 @@ class AgentState(TypedDict):
     parallel/duplicate writes rather than overwriting.
     """
 
-    messages: Annotated[List[str], operator.add]
+    messages: Annotated[list[str], operator.add]
     current_node: str
     code_delta: str
-    execution_logs: Annotated[List[str], operator.add]
+    execution_logs: Annotated[list[str], operator.add]
     retry_count: int

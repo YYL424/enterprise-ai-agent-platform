@@ -1,0 +1,10 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "LLM_Hyperparameters_Contract",
+  "type": "object",
+  "properties": {
+    "learning_rate": { "type": "number", "minimum": 0.000001, "maximum": 0.1 },
+    "batch_size": { "type": "integer", "enum": [16, 32, 64] }
+  },
+  "required": ["learning_rate", "batch_size"]
+}

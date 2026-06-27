@@ -1,0 +1,30 @@
+# Module 2 物理资源隔离平面配置（成员 E 专属）
+sandbox_resource_isolation:
+  cgroups_limits:
+    memory_limit_bytes: 17179869184  # 16 GB
+    cpu_quota_percent: 400           # 4 核
+    block_io_write_bandwidth_limit: 52428800  # 50 MB/s
+    tasks_max: 64                    # 最大进程/线程数
+  cpu_affinity:
+    enabled: true
+    slots:
+      - slot_id: 0
+        cores: "0-7"
+      - slot_id: 1
+        cores: "8-15"
+      - slot_id: 2
+        cores: "16-23"
+      - slot_id: 3
+        cores: "24-31"
+  prewarm:
+    enabled: true
+    pool_size: 2
+    env_name: "sandbox"
+    socket_dir: "/tmp/sandbox_warm"
+  logging:
+    log_dir: "logs"
+    redis_list_prefix: "data_plane:logs"
+    async_push_interval_ms: 100
+  systemd:
+    user_mode: true
+    scope_prefix: "sandbox_job"
