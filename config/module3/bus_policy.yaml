@@ -1,0 +1,44 @@
+# ========================================================================
+# Enterprise AI Platform - Module 3 (底层数据血管)
+# 配置文件: config/module3/bus_policy.yaml
+# 责任人: 成员 H (数据总线专家)
+# 描述: POSIX 共享内存与无锁 RingBuffer 核心调优参数与背压自愈策略
+# ========================================================================
+
+shm_settings:
+  # 共享内存块在 /dev/shm 下的系统级挂载名称
+  shm_name: "/platform_ipc_bus"
+  
+  # RingBuffer 的总槽位数 (Max Slots)
+  # 设定为 131072 (2^17)。在无锁队列中，使用 2 的幂次方可以通过位运算 ( & (size - 1) ) 
+  # 替代昂贵的取模运算 (%)，将指针递增速度推向硬件极限。
+  max_slots: 131072
+  
+  # 单个 Slot 的物理载荷大小 (Bytes)
+  # 设定为 4096 (4KB)。完美契合 Linux 底层默认的物理页 (Page) 大小，
+  # 避免多槽位跨页引发的缺页中断，足以包裹绝大多数 AOP 审计报文与增量 Token。
+  slot_size: 4096
+
+backpressure_policy:
+  # 背压策略切换: "HARD_INTERCEPT" (硬限自旋) | "DEGRADED_APPEND" (降级追加)
+  # 控制沙箱写指针追尾时的底层行为
+  active_strategy: "HARD_INTERCEPT"
+  
+  # 硬限自旋休眠时长 (微秒/us)
+  # 仅在 active_strategy = HARD_INTERCEPT 时生效。
+  # 50us 这是一个极其精妙的魔法值：足以让出 CPU 时间片缓解平台 Python 主控进程的压力，
+  # 又不会触发过深的内核态睡眠导致唤醒延迟。
+  spin_sleep_us: 50
+  
+  # 降级追加的 MsgPack 扁平化持久化文件路径
+  # 仅在 active_strategy = DEGRADED_APPEND 时生效，利用 OS Page Cache 高速落盘。
+  degraded_fallback_path: "/root/autodl-tmp/enterprise-ai-platform/logs/ipc_degraded.msgpack"
+
+self_healing:
+  # 僵死沙箱孤儿状态清洗器的异步扫描间隔 (毫秒/ms)
+  # 每 100ms 扫描一次，在低 CPU 底噪下保证死锁环境的秒级自愈。
+  cleaner_interval_ms: 100
+  
+  # CAS 原子重试容忍上限
+  # 在执行强制状态重置时，如果发生原子并发冲突的最高自旋重试次数。
+  cas_retry_limit: 3

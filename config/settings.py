@@ -12,7 +12,7 @@ import os
 
 REDIS_HOST: str = os.getenv("REDIS_HOST", "127.0.0.1")
 REDIS_PORT: int = int(os.getenv("REDIS_PORT", "6379"))
-REDIS_PASSWORD: str = os.getenv("REDIS_PASSWORD", "EnterpriseAI2024Module1")
+REDIS_PASSWORD: str = os.getenv("REDIS_PASSWORD", "")
 
 # DB partitions (生死线 — do not reassign)
 REDIS_DB_CHECKPOINT: int = 0  # A 独占

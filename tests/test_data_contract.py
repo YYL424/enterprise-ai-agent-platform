@@ -6,12 +6,12 @@ from src.data_plane.contract_compiler import DynamicContractCompiler
 
 @pytest.fixture
 def compiler():
-    schema_path = os.path.join(os.path.dirname(__file__), "../../src/data_plane/contracts/domain_schema.json")
+    schema_path = os.path.join(os.path.dirname(__file__), "../src/data_plane/contracts/domain_schema.json")
     return DynamicContractCompiler(schema_path)
 
 def test_data_plane_isolation():
     """验收指标：验证数据平面代码中绝无对控制平面的物理导入，确保单向解耦"""
-    file_path = os.path.join(os.path.dirname(__file__), "../../src/data_plane/contract_compiler.py")
+    file_path = os.path.join(os.path.dirname(__file__), "../src/data_plane/contract_compiler.py")
     with open(file_path, "r", encoding="utf-8") as f:
         content = f.read()
     assert "control_plane" not in content, "架构破产！数据面不应直接导入控制面代码！"

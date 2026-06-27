@@ -1,0 +1,6 @@
+{
+  "chip_id": "str",
+  "test_cycle": "int",
+  "thermal_limits": "float",
+  "performance_metrics": "dict"
+}

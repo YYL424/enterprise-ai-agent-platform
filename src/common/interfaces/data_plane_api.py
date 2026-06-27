@@ -38,11 +38,36 @@ class IDataHealer:
 
 class ILLMRouter:
     """大模型网关路由接口（成员B实现，A/C调用）"""
-    
+
     def chat_primary(self, messages: List[Dict[str, str]], temperature: float = 0.0) -> str:
         """调用主力大模型（Claude-3.5-Sonnet），用于核心推理。"""
         raise NotImplementedError
-    
+
     def chat_fast(self, messages: List[Dict[str, str]], temperature: float = 0.3) -> str:
         """调用快速大模型（Qwen-2.5-7B），用于摘要和修复。"""
         raise NotImplementedError
+
+
+# ── B 侧预留钩子（A/C 直接调用，B 后续实现）──────────────────────────────────
+
+
+def validate_schema(payload: dict, schema_name: str = "default") -> dict:
+    """B 的 Schema 校验入口。
+
+    根据 *schema_name* 对应的 JSON Schema 对 *payload* 执行运行时强类型校验。
+    校验通过返回原始 payload（可能附带类型强制转换）；校验失败抛出
+    ``ValidationError``（由 B 的 Pydantic 校验层生成）。
+
+    Args:
+        payload: 待校验的字典载荷（通常来自大模型 Function Calling 输出）。
+        schema_name: 目标领域 Schema 名称，对应 ``contracts/domains/`` 下的
+            ``<schema_name>.json`` 文件。
+
+    Returns:
+        校验通过后的 payload dict。
+
+    Raises:
+        NotImplementedError: B 尚未实现此钩子。
+        ValidationError: B 实现后，当 payload 不符合 Schema 时抛出。
+    """
+    raise NotImplementedError("B 待实现 — Schema 校验引擎尚未挂载")

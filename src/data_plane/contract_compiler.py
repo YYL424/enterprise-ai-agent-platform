@@ -1,4 +1,8 @@
+#读取 JSON 规则，然后在程序运行的瞬间（内存中），动态捏造出一个对应的 Python 强类型拦截器，清洗和校验大语言模型（LLM）吐出来的数据
+
 # src/data_plane/contract_compiler.py
+
+
 import json
 from typing import Dict, Any, Literal
 from pydantic import TypeAdapter, ValidationError, create_model, Field

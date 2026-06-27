@@ -1,0 +1,10 @@
+{
+  "paper_id": "str",
+  "math_formula_constraints": "dict",
+  "hyperparameters": {
+    "learning_rate": "float",
+    "batch_size": "int",
+    "weight_decay": "float"
+  },
+  "arch_depth": "int"
+}

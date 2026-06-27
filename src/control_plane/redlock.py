@@ -5,14 +5,8 @@ Provides mutual exclusion for high-concurrency checkpoint writes.
 
 from __future__ import annotations
 
-import sys
 import time as _time
 import uuid
-from pathlib import Path
-
-_project_root = Path(__file__).resolve().parents[2]
-if str(_project_root) not in sys.path:
-    sys.path.insert(0, str(_project_root))
 
 import redis
 from loguru import logger
@@ -54,9 +48,10 @@ class CheckpointRedlock:
             ``True`` if the lock was acquired, ``False`` otherwise.
         """
         for attempt in range(len(self._BACKOFF_MS)):
-            acquired: bool | None = self._client.set(
+            acquired_raw = self._client.set(
                 lock_name, lock_value, px=ttl_ms, nx=True
             )
+            acquired: bool = bool(acquired_raw)
             if acquired:
                 logger.debug(
                     "Redlock acquired | lock_name={} | attempt={}",
